@@ -7,7 +7,7 @@ assert bool("a")
 assert False != True
 assert True is not False
 assert True == True
-assert None is None
+assert None is not False
 
 # Faccio alcune operazioni aritmetiche sui numeri interi
 bar = 0
