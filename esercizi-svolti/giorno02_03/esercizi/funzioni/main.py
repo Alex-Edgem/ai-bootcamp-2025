@@ -99,4 +99,10 @@ assert isinstance(mydivmod4(6,0),str)
 #Esercizio 2 - parte 2
 
 def pow_list(seq):
-    ...
+    result =[]
+    for el in seq:
+        result.append(el**2)
+    return result
+
+print(pow_list((2,3)))
+
