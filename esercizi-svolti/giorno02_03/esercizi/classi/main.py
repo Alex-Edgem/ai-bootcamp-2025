@@ -1,5 +1,10 @@
 class Country:
-    ...
+    def __init__(self, name):
+        self.name=name
+        self.region={}
+
+    def add(self, obj):
+        self.region[obj]
 
     @property
     def pop(self):
@@ -7,7 +12,8 @@ class Country:
 
 
 class Region:
-    ...
+    def __init__(self, name):
+        self.name = name
 
 
 class City:
@@ -15,3 +21,5 @@ class City:
 
     def __init__(self, name, pop=None):
         ...
+
+

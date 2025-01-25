@@ -2,7 +2,7 @@ from main import Country, Region, City
 
 italy = Country("Italy")
 
-assert italy.name == "Italy"
+assert italy.name == "Italy"#888888888888
 
 sicily = Region("Sicily")
 italy.add(sicily)
