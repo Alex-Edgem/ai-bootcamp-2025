@@ -6,15 +6,6 @@ class Country:
     def add(self, regionobject):
         self.regions.append(regionobject)
 
-    # @property
-    # def pop(self):
-    #     """The total population of this country"""
-    #     countpop = 0
-    #     for region in self.regions:
-    #         for city in region:
-    #             countpop += city.pop
-    #     return countpop
-
     @property
     def most_populuous_city(self):
         """The most_populuous_city name"""
