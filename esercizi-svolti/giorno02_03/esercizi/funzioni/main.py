@@ -1,22 +1,33 @@
 # Scrivere il codice dell'esercizi qui dentro
-#Esercizio 2 - parte 1
-from idlelib.configdialog import is_int
-from operator import truediv
 
+#Esercizio 2 - parte 1
 
 #implementazione funzione mydivmod()
 #in caso di valori non validi o dividendo 0 restituisce None che viene gestito sulla chiamata
-def mydivmod(dividendo,divisore):
+def mydivmod(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tuple[float, float] | None:
     """
-    Restituisce il quoziente e il resto della divisione (a // b, a % b).
+        Calcola il quoziente ed il resto di una divisione rispettando l'equivalenza
+        dividendo = quoziente * divisore + resto.
 
-    Args:
-        a (int | float): Il dividendo.
-        b (int | float): Il divisore.
+        Args:
+            dividendo: int|float
+            divisore: int|float
 
-    Returns:
-        tuple: Una tupla (quoziente, resto) o None in caso di errore."""
-    #q*d + r = a
+        Returns:
+            tuple[int, int]: Se dividendo e divisore sono interi.
+            tuple[float, float]: se il dividendo o il divisore è un float
+            None: Se il tipo di imput non è ammesso
+
+        Raises:
+            Non viene sollevato nessun errore. Si deve estire il valore di ritorno None.
+
+        Example:
+            >>> mydivmod( 4, 2)
+            (2, 0)
+
+            >>> mydivmod( 5, 2)
+            (2, 1)
+        """
     if not isinstance(dividendo,(int,float)) or not isinstance(divisore,(int,float)):
         return None
     if divisore == 0:
@@ -26,8 +37,6 @@ def mydivmod(dividendo,divisore):
 
 assert mydivmod(6,4) ==(1,2)
 assert mydivmod(6,"a") is None
-#Non posso usare isinstance con None perchè ?
-
 
 # result=mydivmod(-7.5,"a")
 # if result == None:
@@ -42,17 +51,7 @@ assert mydivmod(6,"a") is None
 #presuppone la conoscenza degli errori previsti
 
 
-def mydivmod2(dividendo,divisore):
-    """
-    Restituisce il quoziente e il resto della divisione (a // b, a % b).
-
-    Args:
-        a (int | float): Il dividendo.
-        b (int | float): Il divisore.
-
-    Returns:
-        tuple: Una tupla (quoziente, resto)."""
-    #q*d + r = a
+def mydivmod2(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tuple[float, float]:
     if not isinstance(dividendo,(int,float)) and not isinstance(divisore,(int,float)):
         raise TypeError("tipo errato")
     if divisore == 0:
@@ -76,18 +75,8 @@ assert mydivmod2(6,4) ==(1,2)
 #in caso di valori non validi o dividenzo 0 vengono lanciati errori di tipo diverso
 #non presuppone la conoscenza degli errori previsti - ho usato Exception
 
-def mydivmod3(dividendo,divisore):
-    """
-    Restituisce il quoziente e il resto della divisione (a // b, a % b).
-
-    Args:
-        a (int | float): Il dividendo.
-        b (int | float): Il divisore.
-
-    Returns:
-        tuple: Una tupla (quoziente, resto)"""
-    #q*d + r = a
-    if not isinstance(dividendo,(int,float)) and not isinstance(divisore,(int,float)):
+def mydivmod3(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tuple[float, float]:
+   if not isinstance(dividendo,(int,float)) and not isinstance(divisore,(int,float)):
         raise TypeError("tipo errato")
     if divisore == 0:
         raise ZeroDivisionError("divisione per zero")
@@ -103,17 +92,7 @@ assert mydivmod3(6,4) ==(1,2)
 
 
 #try dentro definizione di funzione
-def mydivmod4(dividendo,divisore):
-    """mydivmod2(a: int|float, b: int|float) -> tuple
-
-        Restituisce il quoziente e il resto della divisione (a // b, a % b).
-
-        Args:
-            a (int | float): Il dividendo.
-            b (int | float): Il divisore.
-
-        Returns:
-            tuple: Una tupla (quoziente, resto)"""
+def mydivmod4(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tuple[float, float]:
     try:
         return (dividendo//divisore, dividendo%divisore)
     except Exception as error:
@@ -133,25 +112,31 @@ assert isinstance(mydivmod4(6,0),str)
 
 #Esercizio 2 - parte 2
 
-def pow_list(seq):
+def pow_list(seq: list[int]) -> list[int]:
     """
-    Args:
-        numbers (list): Lista di numeri (int o float).
+        Mappa ogni elemento della sequenza fornita con l'elevamento al quadrato
+        Args:
+            seq: list[int]
+        Returns:
+            list[int2]: Ogni elemento sarà il quadrato di quello fornito
+        Raises:
+            Non viene sollevato nessun errore. Si deve estire il valore di ritorno None.
 
-    Returns:
-        list: Nuova lista con ogni elemento elevato alla potenza di 2.
-    """
-    result =[]
+        Example:
+            >>> pow_list([1,2,3])
+            [1,4,9]
+
+        """
+    result = []
     for el in seq:
-        result.append(el**2)
+        result.append(el ** 2)
     return result
 
 
 
 
-
-def count_words(string):
-    return len(string.split(" "))
+def count_words(text: str) -> int:
+    return len(text.split(" "))
 
 
 
