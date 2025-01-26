@@ -15,7 +15,7 @@ class Country:
     #             countpop += city.pop
     #     return countpop
 
-    #@property
+    @property
     def most_populuous_city(self):
         """The most_populuous_city name"""
         most_populous = None
@@ -74,4 +74,4 @@ sicily.add(City("Catania", pop=300_000))
 sicily.add(City("Palermo", pop=600_000))
 
 
-print(italy.most_populuous_city())
+print(italy.most_populuous_city)
