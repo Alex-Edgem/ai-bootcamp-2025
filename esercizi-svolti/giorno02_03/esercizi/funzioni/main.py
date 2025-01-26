@@ -52,7 +52,7 @@ assert mydivmod(6,"a") is None
 
 
 def mydivmod2(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tuple[float, float]:
-    if not isinstance(dividendo,(int,float)) and not isinstance(divisore,(int,float)):
+    if not isinstance(dividendo,(int,float)) or not isinstance(divisore,(int,float)):
         raise TypeError("tipo errato")
     if divisore == 0:
         raise ZeroDivisionError("divisione per zero")
@@ -76,12 +76,12 @@ assert mydivmod2(6,4) ==(1,2)
 #non presuppone la conoscenza degli errori previsti - ho usato Exception
 
 def mydivmod3(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tuple[float, float]:
-   if not isinstance(dividendo,(int,float)) and not isinstance(divisore,(int,float)):
+   if not isinstance(dividendo,(int,float)) or not isinstance(divisore,(int,float)):
         raise TypeError("tipo errato")
-    if divisore == 0:
+   if divisore == 0:
         raise ZeroDivisionError("divisione per zero")
 
-    return (dividendo//divisore,dividendo % divisore)
+   return (dividendo//divisore,dividendo % divisore)
 
 assert mydivmod3(6,4) ==(1,2)
 
@@ -92,7 +92,7 @@ assert mydivmod3(6,4) ==(1,2)
 
 
 #try dentro definizione di funzione
-def mydivmod4(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tuple[float, float]:
+def mydivmod4(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tuple[float, float] | str:
     try:
         return (dividendo//divisore, dividendo%divisore)
     except Exception as error:
@@ -101,8 +101,7 @@ def mydivmod4(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tu
         else:
             return "Stai tentando di dividere per Zero"
 
-
-assert isinstance(mydivmod4(6,0),str)
+assert mydivmod3(6,4) ==(1,2)
 
 # print(mydivmod4(5, ""))
 
@@ -112,87 +111,259 @@ assert isinstance(mydivmod4(6,0),str)
 
 #Esercizio 2 - parte 2
 
-def pow_list(seq: list[int]) -> list[int]:
+def pow_list(seq: list[int|float]) -> list:
     """
         Mappa ogni elemento della sequenza fornita con l'elevamento al quadrato
         Args:
-            seq: list[int]
+            seq: list[int|float]
         Returns:
-            list[int2]: Ogni elemento sarà il quadrato di quello fornito
+            list: Ogni elemento sarà il quadrato di quello fornito
         Raises:
-            Non viene sollevato nessun errore. Si deve estire il valore di ritorno None.
+            Vuene sollevata l'eccezione Typeerror per parametri non validi
 
         Example:
             >>> pow_list([1,2,3])
             [1,4,9]
 
-        """
+    """
     result = []
     for el in seq:
-        result.append(el ** 2)
+        if isinstance(el, (int, float)):
+            result.append(el**2)
+        else:
+            raise TypeError("la lista contiene dati non numerici")
     return result
 
+# try:
+#     pow_list([1.2,2,"a"])
+# except Exception as e:
+#     print(f"Error: {e.__class__} - {e}")
 
+assert pow_list([1,2,3]) == [1,4,9]
 
 
 def count_words(text: str) -> int:
-    return len(text.split(" "))
+    """
+        Conta le parole in una stringa
+        Args:
+            text: str
+        Returns:
+            int: numero delle parole
+        Raises:
+            Vuene sollevata l'eccezione Typeerror per parametri non validi
+
+        Example:
+            >>> count_words("Mi chiamo Alessandro")
+            3
+    """
+    if not isinstance(text, str):
+        raise TypeError("Parametro non valido")
+
+    return len(text.split())
+
+# try:
+#     print(count_words([1,2,3]))
+# except Exception as e:
+#     print(f"Error: {e.__class__} - {e}")
+
+assert count_words("hello world")==2
 
 
+def reverse_string(text: str) -> str:
 
+    """
+        Inverte le lettere di una stringa
+        Args:
+            text: str
+        Returns:
+            str: stringa invertita
+        Raises:
+            Vuene sollevata l'eccezione Typeerror per parametri non validi
 
-def reverse_string(text):
-    creationist=list(text)
+        >>> reverse_string("Hello")
+        'olleH'
+
+    Note:
+        Vengono illustrate più implementazioni:
+        1. La stringa viene convertita in una lista per sfruttare il metodo `reverse`.
+           Dopo aver modificato la lista sul posto, la stringa viene ricostruita usando `join`.
+        2. Utilizzando la funzione reverced che accetta un iterabile e restituisce un iteratore
+        3. Utilizzo dell'operatore [::-1] - slicing.
+        4. Utilizzando un ciclo con un contatore decremento
+    """
+    if not isinstance(text, str):
+        raise TypeError("Il parametro fornito non è una stringa.")
+
+    creationist = list(text)
     creationist.reverse()
     return "".join(creationist)
 
-def reverse_string2(text):
+def reverse_string2(text: str) -> str:
+    if not isinstance(text, str):
+        raise TypeError("Il parametro fornito non è una stringa.")
+
     return "".join(reversed(text))
 
-def reverse_string3(text):
+def reverse_string3(text: str) -> str:
+    if not isinstance(text, str):
+        raise TypeError("Il parametro fornito non è una stringa.")
+
     return text[::-1]
 
-def reverse_string4(text):
+def reverse_string4(text: str) -> str:
+    if not isinstance(text, str):
+        raise TypeError("Il parametro fornito non è una stringa.")
+
     count=len(text)-1
-    list=[]
+    listainvertita=[]
     while count>=0:
-        list.append(text[count])
+        listainvertita.append(text[count])
         count-=1
-    return "".join(list)
+    return "".join(listainvertita)
+
+assert reverse_string("hello") == "olleh"
 
 
+def is_palindrome(text: str) -> bool:
+    """
+        Verifica se la parola è un palindromo
+
+        Args:
+            text: str
+        Returns:
+            bool: True se la parola é un palindromo
+        Raises:
+            Vuene sollevata l'eccezione Typeerror per parametri non validi
+
+        >>> is_palindrome("racecar")
+        True
+        """
+    if not isinstance(text, str):
+        raise TypeError("Il parametro fornito non è una stringa.")
+
+    return text == text[::-1]
 
 
-
-def is_palindrome(text):
-    if text == text[::-1]:
-        return True
-    else:
-        return False
+assert is_palindrome("racecar") == True
 
 
+def sum_even_numbers(numlist: list[int|float]) -> int:
+    """
+        Somma i numeri nelle posizioni pari
 
-def sum_even_numbers(li):
+        Args:
+            list: int|float
+        Returns:
+            int: somma i valori nelle posizioni pari
+        Raises:
+            Vuene sollevata l'eccezione Typeerror per parametri non validi
+
+        >>> sum_even_numbers([1, 2, 3, 4, 5])
+        6
+
+
+            """
+
     result=0
-    for num in li:
-        result +=num
+    for index, value in enumerate(numlist):
+        if not isinstance(value, (int, float)):
+            raise TypeError("La lista non contiene solo numeri")
+
+        if index%2:
+            result +=value
+
     return result
 
-
-def find_max(li):
-    li.sort()
-    return li[-1]
+assert sum_even_numbers([1, 2, 3, 4, 5]) == 6
 
 
 
 
-def count_vowels(st):
+def find_max(numlist: list[int|float]) -> int|float:
+    """
+        Trova il numero maggiore presente nella lista
+
+        Args:
+            numlist: int|float
+        Returns:
+            int|float: numero maggiore
+        Raises:
+            Vuene sollevata l'eccezione Typeerror per parametri non validi
+
+        >>> find_max([3, 1, 4, 1, 5])
+        5
+    """
+    for value in numlist:
+        if not isinstance(value, (int, float)):
+            raise TypeError("La lista non contiene solo numeri.")
+
+    numlist.sort()
+    return numlist[-1]
+
+
+assert find_max([3, 1, 4, 1, 5]) == 5
+
+
+
+def count_vowels(text: str) -> int:
+    """
+        Conta il numero di vocali nella stringa
+
+        Args:
+            text: stringa da esaminare
+        Returns:
+            int: numero di vocali trovate
+        Raises:
+            Vuene sollevata l'eccezione Typeerror per parametri non validi
+
+        >>> count_vowels("hello world")
+        3
+    """
+    if not isinstance(text, str):
+        raise TypeError("Il parametro fornito non è una stringa.")
+
     vocal=["a", "e", "i", "o", "u"]
-    vocalinstring=[]
-    for letter in st:
+    count = 0
+    for letter in text:
         if letter in vocal:
-            vocalinstring.append(letter)
-    return len(vocalinstring)
+            count +=1
+    return count
 
 
 
+assert count_vowels("hello world") == 3
+
+
+
+def factorial(num: int) -> int:
+    """
+        Calcola il fattoriale di un numero
+
+        Args:
+            num:
+        Returns:
+            int: fattoriale
+        Raises:
+            Vuene sollevata l'eccezione Typeerror per parametri non validi
+
+        >>> factorial(5)
+        120
+    """
+    if not isinstance(num, int):
+        raise TypeError("Il parametro fornito non è un numero valido.")
+
+    if num < 0:
+        raise ValueError("Valori negativi non consentiti")
+
+    if num > 1:
+        return num * factorial(num -1)
+    elif num == 1 or num ==0:
+        return 1
+
+
+# try:
+#     print(factorial(-4))
+# except Exception as e:
+#     print(e)
+
+assert factorial(5) == 120

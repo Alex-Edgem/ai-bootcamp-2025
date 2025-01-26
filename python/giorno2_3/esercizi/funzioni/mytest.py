@@ -1,26 +1,28 @@
-def pow_list(seq: list[int]) -> list[int]:
+def sum_even_numbers(numlist: list[int|float]) -> int:
     """
-        Mappa ogni elemento della sequenza fornita con l'elevamento al quadrato
-
+        Somma i numeri nelle posizioni pari
 
         Args:
-            seq: list[int]
-
-
+            list: int|float
         Returns:
-            list[int2]: Ogni elemento sarà il quadrato di quello fornito
-
+            int: somma i valori nelle posizioni pari
         Raises:
-            Non viene sollevato nessun errore. Si deve estire il valore di ritorno None.
+            Vuene sollevata l'eccezione Typeerror per parametri non validi
 
-        Example:
-            >>> pow_list([1,2,3])
-            [1,4,9]
+        >>> sum_even_numbers([1, 2, 3, 4, 5])
+        6
 
-        """
-    result = []
-    for el in seq:
-        result.append(el ** 2)
+
+            """
+
+    result=0
+    for index, value in enumerate(numlist):
+        if not isinstance(value, (int, float)):
+            raise TypeError("Il parametro fornito non è un numero.")
+
+        if index%2:
+            result +=value
+
     return result
 
-print(pow_list([1,2,3]))
+print(sum_even_numbers([1, 2, 3, 4, 5]))
