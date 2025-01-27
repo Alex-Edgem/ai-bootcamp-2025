@@ -3,8 +3,8 @@
 #Esercizio 2 - parte 1
 
 #implementazione funzione mydivmod()
-#in caso di valori non validi o dividendo 0 restituisce None che viene gestito sulla chiamata
-def mydivmod(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tuple[float, float] | None:
+
+def mydivmod(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tuple[float, float]:
     """
         Calcola il quoziente ed il resto di una divisione rispettando l'equivalenza
         dividendo = quoziente * divisore + resto.
@@ -16,10 +16,9 @@ def mydivmod(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tup
         Returns:
             tuple[int, int]: Se dividendo e divisore sono interi.
             tuple[float, float]: se il dividendo o il divisore è un float
-            None: Se il tipo di imput non è ammesso
 
         Raises:
-            Non viene sollevato nessun errore. Si deve estire il valore di ritorno None.
+            TypeError | ZeroDivisionError
 
         Example:
             >>> mydivmod( 4, 2)
@@ -28,82 +27,25 @@ def mydivmod(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tup
             >>> mydivmod( 5, 2)
             (2, 1)
         """
-    if not isinstance(dividendo,(int,float)) or not isinstance(divisore,(int,float)):
-        return None
-    if divisore == 0:
-        return None
-
-    return (dividendo//divisore,dividendo % divisore)
-
-assert mydivmod(6,4) ==(1,2)
-assert mydivmod(6,"a") is None
-
-# result=mydivmod(-7.5,"a")
-# if result == None:
-#     print("stai usando valori non validi 1")
-# else:
-#     print(result)
-
-
-
-#in caso di valori non validi o dividenzo 0 vengono lanciati errori di tipo diverso
-#La chiamata viene gestita con try e 2 excep (i due tipi di errore previsti)
-#presuppone la conoscenza degli errori previsti
-
-
-def mydivmod2(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tuple[float, float]:
-    if not isinstance(dividendo,(int,float)) or not isinstance(divisore,(int,float)):
+    if not isinstance(dividendo, (int, float)) or not isinstance(divisore, (int, float)):
         raise TypeError("tipo errato")
     if divisore == 0:
         raise ZeroDivisionError("divisione per zero")
 
-    return (dividendo//divisore,dividendo % divisore)
+    return (dividendo // divisore, dividendo % divisore)
 
-assert mydivmod2(6,4) ==(1,2)
-#assert not isinstance(mydivmod2(6, 0), tuple) Errore perche non viene restituito ma sollevato
-#assert mydivmod2(6,"a") is TypeError # Errore perche non viene restituito ma sollevato
+
+assert mydivmod(6, 4) == (1, 2)
+
 
 # try:
-#     print(mydivmod2(5, 0))
-# except TypeError:
-#     print("tipo errato")
-# except ZeroDivisionError:
-#     print("divisione per zero")
+#     print(mydivmod(5, 0))
+# except TypeError as e:
+#     print(f"{e}")
+# except ZeroDivisionError as e:
+#     print(f"{e}")
 
 
-
-#in caso di valori non validi o dividenzo 0 vengono lanciati errori di tipo diverso
-#non presuppone la conoscenza degli errori previsti - ho usato Exception
-
-def mydivmod3(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tuple[float, float]:
-   if not isinstance(dividendo,(int,float)) or not isinstance(divisore,(int,float)):
-        raise TypeError("tipo errato")
-   if divisore == 0:
-        raise ZeroDivisionError("divisione per zero")
-
-   return (dividendo//divisore,dividendo % divisore)
-
-assert mydivmod3(6,4) ==(1,2)
-
-# try:
-#     print(mydivmod3(5, 0))
-# except Exception as e:
-#     print(e)
-
-
-#try dentro definizione di funzione
-def mydivmod4(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tuple[float, float] | str:
-    try:
-        return (dividendo//divisore, dividendo%divisore)
-    except Exception as error:
-        if type(error)==TypeError:
-            return "Tipi non validi"
-        else:
-            return "Stai tentando di dividere per Zero"
-
-assert mydivmod3(6,4) ==(1,2)
-
-# print(mydivmod4(5, ""))
 
 
 
@@ -111,7 +53,7 @@ assert mydivmod3(6,4) ==(1,2)
 
 #Esercizio 2 - parte 2
 
-def pow_list(seq: list[int|float]) -> list:
+def pow_list(seq: list[int | float]) -> list:
     """
         Mappa ogni elemento della sequenza fornita con l'elevamento al quadrato
         Args:
@@ -119,7 +61,7 @@ def pow_list(seq: list[int|float]) -> list:
         Returns:
             list: Ogni elemento sarà il quadrato di quello fornito
         Raises:
-            Vuene sollevata l'eccezione Typeerror per parametri non validi
+            Vuene sollevata l'eccezione TypeError per parametri non validi
 
         Example:
             >>> pow_list([1,2,3])
@@ -133,6 +75,7 @@ def pow_list(seq: list[int|float]) -> list:
         else:
             raise TypeError("la lista contiene dati non numerici")
     return result
+
 
 # try:
 #     pow_list([1.2,2,"a"])
@@ -224,6 +167,21 @@ def reverse_string4(text: str) -> str:
 assert reverse_string("hello") == "olleh"
 
 
+def reverse_string5(text: str) -> str:
+    if not isinstance(text, str):
+        raise TypeError("Il parametro fornito non è una stringa.")
+
+    count=len(text)-1
+    while count>=0:
+        yield text[count]
+        count-=1
+
+#print("".join(reverse_string5("alex")))
+
+
+
+
+
 def is_palindrome(text: str) -> bool:
     """
         Verifica se la parola è un palindromo
@@ -247,12 +205,14 @@ def is_palindrome(text: str) -> bool:
 assert is_palindrome("racecar") == True
 
 
+
+
 def sum_even_numbers(numlist: list[int|float]) -> int:
     """
         Somma i numeri nelle posizioni pari
 
         Args:
-            list: int|float
+            numlist: int|float
         Returns:
             int: somma i valori nelle posizioni pari
         Raises:
@@ -264,15 +224,16 @@ def sum_even_numbers(numlist: list[int|float]) -> int:
 
             """
 
-    result=0
-    for index, value in enumerate(numlist):
-        if not isinstance(value, (int, float)):
-            raise TypeError("La lista non contiene solo numeri")
-
-        if index%2:
-            result +=value
-
-    return result
+    # result=0
+    # for index, value in enumerate(numlist):
+    #     if not isinstance(value, (int, float)):
+    #         raise TypeError("La lista non contiene solo numeri")
+    #
+    #     if index%2:
+    #         result +=value
+    #
+    # return result
+    return sum(value for index, value in enumerate(numlist) if index%2)
 
 assert sum_even_numbers([1, 2, 3, 4, 5]) == 6
 
