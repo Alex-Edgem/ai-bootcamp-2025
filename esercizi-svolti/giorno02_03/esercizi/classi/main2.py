@@ -9,13 +9,10 @@ class Country:
     def __iter__(self):
         return iter(self.regions)
 
-
-
-    # usiamo list comprehension
+    #usiamo list comprehension
     @property
     def pop(self):
         return sum(city.pop for region in self for city in region)
-
 
     @property
     def most_populuous_city(self):
@@ -30,7 +27,7 @@ class Country:
 
 
 class Region:
-    def __init__(self,name):
+    def __init__(self, name):
         self.name = name
         self.cities = []
 
@@ -45,11 +42,11 @@ class Region:
         return sum(city.pop for city in self if city.pop is not None)
 
 
-
 class City:
     def __init__(self, name, pop=None):
         self.name = name
         self.pop = pop
+
 
 italy = Country("Italy")
 sicily = Region("Sicily")
@@ -60,7 +57,6 @@ palermo = City("Palermo", 600_000)
 catania = City("Catania", 300_000)
 reggio = City("Reggio", 170_000)
 gallipoli = City("Gallipoli", 1_000_000)
-
 
 italy.add(sicily)
 italy.add(calabria)

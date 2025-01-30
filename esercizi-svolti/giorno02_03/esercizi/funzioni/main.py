@@ -32,7 +32,7 @@ def mydivmod(dividendo: int|float, divisore: int|float) -> tuple[int, int] | tup
     if divisore == 0:
         raise ZeroDivisionError("divisione per zero")
 
-    return (dividendo // divisore, dividendo % divisore)
+    return dividendo // divisore, dividendo % divisore
 
 
 assert mydivmod(6, 4) == (1, 2)
