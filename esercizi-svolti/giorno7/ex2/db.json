@@ -1,0 +1,20 @@
+[
+    {
+        "name": "John",
+        "surname": "Doe",
+        "phone": "12345"
+    },
+    {
+        "name": "Jane",
+        "surname": "Smith",
+        "phone": "67890"
+    },
+    {
+        "name": "Tech Corp",
+        "phone": "98765"
+    },
+    {
+        "name": "Innovative Solutions",
+        "phone": "54321"
+    }
+]

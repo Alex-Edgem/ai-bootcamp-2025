@@ -1,5 +1,5 @@
 import csv
-<<<<<<< HEAD
+
 from fileinput import close
 
 # data = []
@@ -33,10 +33,4 @@ with open("data_output.csv", "w") as fd:
     writer = csv.writer(fd)
     writer.writerow(head)
     writer.writerows([s[1:] for s in sorted_data])
-=======
 
-with open("data.csv") as fd:
-    reader = csv.reader(fd)
-    for line in reader:
-        print(line)
->>>>>>> 50131cc3700aa8e87535a46356830e80c160669f
